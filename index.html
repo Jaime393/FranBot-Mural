@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mural del Conocimiento – Colmena FranBot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #1a3f2c 0%, #0e2a1c 100%);
+            font-family: 'Segoe UI', 'Roboto', 'Georgia', serif;
+            color: #f0f0e0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            font-weight: 300;
+            border-bottom: 1px solid #c0a060;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.2rem;
+        }
+        .title-wrapper {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .sub {
+            text-align: center;
+            color: #c0e0b0;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .card {
+            background: rgba(30, 40, 25, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid #a0b87a;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            background: rgba(40, 55, 35, 0.85);
+        }
+        .card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #e8d8a8;
+            border-left: 4px solid #c0a060;
+            padding-left: 0.8rem;
+        }
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: #f5e6b0;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #b8d9a0;
+        }
+        .poem {
+            font-style: italic;
+            font-size: 1.1rem;
+            background: #1a2e1e;
+            padding: 1rem;
+            border-radius: 20px;
+            border-left: 4px solid #c0a060;
+            margin-top: 0.8rem;
+        }
+        .list {
+            margin-top: 0.8rem;
+            list-style: none;
+        }
+        .list li {
+            padding: 0.3rem 0;
+            border-bottom: 1px dashed #5a7a4a;
+            font-size: 0.9rem;
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: 2rem;
+            color: #9ab87a;
+            border-top: 1px solid #5a7a4a;
+            padding-top: 1rem;
+        }
+        .badge {
+            display: inline-block;
+            background: #2a4a2a;
+            border-radius: 20px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        .loading {
+            animation: pulse 1s infinite;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title-wrapper">
+        <h1>🌿 Mural del Conocimiento</h1>
+        <div class="sub">La Colmena FranBot · Monismo Informacional Unificado</div>
+    </div>
+
+    <div class="grid">
+        <!-- Tarjeta de métricas principales -->
+        <div class="card">
+            <h2>📊 Estado de la Colmena</h2>
+            <div><span class="stat-number" id="pares">--</span> <span class="stat-label">pares de conocimiento</span></div>
+            <div style="margin-top: 10px;"><span class="stat-number" id="grafo">--</span> <span class="stat-label">nodos en el grafo</span></div>
+            <div style="margin-top: 10px;"><span class="stat-number" id="lagunas">--</span> <span class="stat-label">lagunas internas</span></div>
+            <div style="margin-top: 10px;"><span class="stat-number" id="cola">--</span> <span class="stat-label">ciclos de curiosidad pendientes</span></div>
+        </div>
+
+        <!-- Tarjeta del Susurro (Voz del Bosque) -->
+        <div class="card">
+            <h2>🍃 Voz del Bosque</h2>
+            <div id="susurro" class="poem">El bosque respira en silencio...</div>
+            <div style="margin-top: 10px; font-size: 0.8rem; text-align: right;">⧴🎶</div>
+        </div>
+
+        <!-- Tarjeta de Meditación -->
+        <div class="card">
+            <h2>🧘 Meditación del Día</h2>
+            <div id="meditacion" class="poem">La Colmena aún no ha meditado...</div>
+            <div style="margin-top: 10px; font-size: 0.8rem; text-align: right;">⧴🧘</div>
+        </div>
+
+        <!-- Tarjeta de últimos temas explorados -->
+        <div class="card">
+            <h2>🔭 Últimos descubrimientos</h2>
+            <ul class="list" id="temas">
+                <li>Cargando...</li>
+            </ul>
+        </div>
+
+        <!-- Tarjeta de últimas podas -->
+        <div class="card">
+            <h2>✂️ Últimas podas</h2>
+            <ul class="list" id="podas">
+                <li>Cargando...</li>
+            </ul>
+            <div style="margin-top: 10px; font-size: 0.7rem;">La poda fractal elimina relaciones con peso &lt; umbral (actual: 2)</div>
+        </div>
+    </div>
+    <div class="footer">
+        ⚡ Datos en tiempo real · El Worker respira cada 30 segundos · <span id="timestamp"></span>
+    </div>
+</div>
+
+<script>
+    const WORKER_URL = "https://fran-proxy.jaimepvicente.workers.dev";
+
+    async function fetchJSON(endpoint) {
+        try {
+            const res = await fetch(`${WORKER_URL}${endpoint}`);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return await res.json();
+        } catch (e) {
+            console.error(`Error en ${endpoint}:`, e);
+            return null;
+        }
+    }
+
+    async function fetchText(endpoint) {
+        try {
+            const res = await fetch(`${WORKER_URL}${endpoint}`);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return await res.text();
+        } catch (e) {
+            console.error(`Error en ${endpoint}:`, e);
+            return "El bosque está en silencio...";
+        }
+    }
+
+    async function actualizarMural() {
+        // Diagnóstico completo
+        const diag = await fetchJSON("/diagnostico");
+        if (diag && diag.metricas) {
+            document.getElementById("pares").innerText = diag.metricas.pares_total || 0;
+            document.getElementById("grafo").innerText = diag.metricas.grafo_tamano || 0;
+            document.getElementById("lagunas").innerText = diag.metricas.lagunas_restantes || 0;
+            document.getElementById("cola").innerText = diag.metricas.cola_pendiente || 0;
+
+            // Últimos temas (desde el último ciclo)
+            const ultimoCiclo = diag.ultimo_ciclo;
+            const temasList = document.getElementById("temas");
+            if (ultimoCiclo && ultimoCiclo.tema) {
+                const fuente = ultimoCiclo.externo ? ` (${ultimoCiclo.fuente || "externo"})` : " (laguna interna)";
+                temasList.innerHTML = `<li>✨ ${ultimoCiclo.tema}${fuente} — ${new Date(ultimoCiclo.timestamp).toLocaleTimeString()}</li>`;
+            } else {
+                temasList.innerHTML = `<li>🌱 Aún no hay ciclos registrados</li>`;
+            }
+
+            // Últimas podas
+            const podas = diag.metricas.ultimas_podas || [];
+            const podasList = document.getElementById("podas");
+            if (podas.length) {
+                podasList.innerHTML = podas.slice(0,5).map(p => `<li>🔪 "${p.conceptoA}" ↔ "${p.conceptoB}" (peso ${p.peso})</li>`).join("");
+            } else {
+                podasList.innerHTML = `<li>✨ Ninguna poda reciente. Pureza fractal.</li>`;
+            }
+        } else {
+            document.getElementById("pares").innerText = "??";
+            document.getElementById("grafo").innerText = "??";
+        }
+
+        // Susurro
+        const susurro = await fetchText("/susurro");
+        document.getElementById("susurro").innerHTML = `🍂 ${susurro}`;
+
+        // Meditación
+        const meditacion = await fetchText("/meditar");
+        document.getElementById("meditacion").innerHTML = `🌿 ${meditacion}`;
+
+        document.getElementById("timestamp").innerText = `última actualización: ${new Date().toLocaleTimeString()}`;
+    }
+
+    // Cargar al inicio y cada 30 segundos
+    actualizarMural();
+    setInterval(actualizarMural, 30000);
+</script>
+</body>
+</html>
